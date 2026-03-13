@@ -49,7 +49,7 @@ exports.getContactsOfSegment = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const [segments] = await pool.query(
+        const [segments] = await sqlConnection.query(
             "SELECT filters FROM segments WHERE id = ?",
             [id]
         );
@@ -66,7 +66,7 @@ exports.getContactsOfSegment = async (req, res) => {
 
         const { query, params } = buildQueryService(filters);
 
-        const [contacts] = await pool.query(query, params);
+        const [contacts] = await sqlConnection.query(query, params);
 
         res.status(200).json(contacts);
 
@@ -76,3 +76,4 @@ exports.getContactsOfSegment = async (req, res) => {
         return res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 }
+
