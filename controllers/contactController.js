@@ -102,7 +102,7 @@ exports.updateContact = async (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(400).json({ message: 'Contact not updated' });
         }
-        let tagsArray = tags.split(',');
+        let tagsArray = Array.isArray(tags) ? tags : (tags ? tags.split(',') : []);
         for (let tag of tagsArray) {
             let checkTagQuery = `SELECT id FROM contact_tags WHERE contactId = ? AND tagName = ?`;
             let checkTagvalues = [id, tag];
@@ -144,4 +144,5 @@ exports.deleteContact = async (req, res) => {
         return res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 }
+
 
