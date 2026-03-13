@@ -64,6 +64,7 @@ CREATE TABLE contacts (
     email VARCHAR(255) NOT NULL UNIQUE,
     region ENUM('North','South','East','West') NOT NULL,
     lastPurchaseDate DATE,
+    active INT DEFAULT 1,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -101,4 +102,5 @@ CREATE INDEX idx_jobs_status ON jobs(status);
 CREATE INDEX idx_jobs_schedule ON jobs(scheduledAt);
 
 ------------------------------
+
 
