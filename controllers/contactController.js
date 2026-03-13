@@ -16,7 +16,7 @@ exports.createContact = async (req, res) => {
         let values = [name, email, region, lastPurchaseDate];
         let [result] = await sqlConnection.query(query, values);
 
-        let tagsArray = tags.split(',');
+        let tagsArray = Array.isArray(tags) ? tags : (tags ? tags.split(',') : []);
         for (let tag of tagsArray) {
             let query = `INSERT INTO contact_tags (contactId, tagName) VALUES (?, ?)`;
             let values = [result.insertId, tag];
@@ -144,3 +144,4 @@ exports.deleteContact = async (req, res) => {
         return res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 }
+
