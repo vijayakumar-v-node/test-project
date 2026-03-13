@@ -135,14 +135,13 @@ exports.deleteContact = async (req, res) => {
         let deleteTagsOfContactQuery = `DELETE FROM contact_tags WHERE contactId = ?`;
         let deleteTagsOfContactvalues = [id];
         let [resultTags] = await sqlConnection.query(deleteTagsOfContactQuery, deleteTagsOfContactvalues);
-        if (resultTags.affectedRows === 0) {
-            return res.status(400).json({ message: 'Tags not deleted' });
-        }
+      
         return res.status(200).json({ message: 'Contact deleted successfully' });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 }
+
 
 
